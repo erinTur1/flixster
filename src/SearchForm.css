@@ -1,0 +1,14 @@
+.search-form {
+    width: 33%;
+    padding-bottom:25px;
+    flex-grow: 1;
+}
+
+form #title {
+    padding: 7px;
+    width: 60%;
+}
+
+form button {   
+    width: 10%;
+}
