@@ -5,24 +5,28 @@ import MovieCard from './MovieCard'
 
 const MovieList = () => {
 
-    const [movieList, setMovieList] = useState([]);
+    const [nowPlaying, setNowPlaying] = useState([]);
+    const [numPages, setNumPages] = useState(1);
 
-    //from tmdb api documentation:
-    const url = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1';
-    const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${import.meta.env.VITE_READ_ACCESS_TOKEN}`
-        }
-    };
     
     useEffect(() => {
         getData(); 
-    }, []);
+    }, [numPages]);
 
   
     async function fetchData (){
+
+        //from tmdb api documentation:
+        const url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${numPages}`;
+        const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${import.meta.env.VITE_READ_ACCESS_TOKEN}`
+            }
+        };
+
+
         try {
             const response = await fetch(url, options);
             if (!response.ok) {
@@ -38,14 +42,19 @@ const MovieList = () => {
 
     const getData = async () => {
         const data = await fetchData();
-        setMovieList(data);
+        setNowPlaying([...nowPlaying, ...data]);
+    }
+
+    const addPage = async () => {
+        setNumPages(numPages => numPages + 1);
     }
 
 
 
     return (
+        <>
         <div className="movie-list-container">
-            {movieList.map((movie) => {
+            {nowPlaying.map((movie) => {
                 return (
                     <MovieCard 
                         key={movie?.id}
@@ -56,6 +65,8 @@ const MovieList = () => {
                 );
             })}
         </div>
+        <button onClick={addPage} title="Load More">Load More</button>
+        </>
     )
 };
 
