@@ -1,13 +1,12 @@
 import '../MovieCard.css'
 import PlaceHolderImg from '../assets/movie-img-placeholder.png';
 
-const MovieCard = ({title}) => {
-  console.log(title);
+const MovieCard = ({img, title, rating}) => {
   return (
     <div className="movie-card">
-        <img src={PlaceHolderImg}/>
+        <img src={"https://image.tmdb.org/t/p/w500" + img}/>
         <p>{title}</p>
-        {/* <p>{rating}</p> */}
+        <p>{rating}</p>
     </div>
   )
 }

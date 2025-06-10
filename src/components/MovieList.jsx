@@ -18,13 +18,8 @@ const MovieList = () => {
     };
     
     useEffect(() => {
-        fetchData(); 
-        // console.log('movieList: ', movieList);  
+        getData(); 
     }, []);
-
-    useEffect(() => {
-        console.log('movieList: ', movieList);
-    }, [movieList]);
 
   
     async function fetchData (){
@@ -34,38 +29,32 @@ const MovieList = () => {
                 throw new Error(`Response status: ${response.status}`)
             }
             const json = await response.json();
-            console.log("json", json);
-            setMovieList(json.results);   
-            // return json.results;
+            // setMovieList(json.results);   
+            return json.results;
         } catch (error) {
             console.error(error.message);
         }
-        // fetch(url, options)
-        // .then(res => res.json())
-        // .then(json => {
-        //     console.log('json: ', json.results);
-        //     setMovieList(json.results);            
-        // }) 
-        // .catch(err => console.error(err));
     }
 
-    async function getData() {
+    const getData = async () => {
         const data = await fetchData();
-        console.log(data);
         setMovieList(data);
-        console.log(movieList);
     }
 
 
 
     return (
         <div className="movie-list-container">
-            <MovieCard 
-                key={movieList[0]?.id}
-                img={movieList[0]?.poster_path}
-                title={movieList[0]?.title}
-                rating={movieList[0]?.vote_average} 
-            />
+            {movieList.map((movie) => {
+                return (
+                    <MovieCard 
+                        key={movie?.id}
+                        img={movie?.poster_path}
+                        title={movie?.title}
+                        rating={movie?.vote_average} 
+                    />
+                );
+            })}
         </div>
     )
 };
