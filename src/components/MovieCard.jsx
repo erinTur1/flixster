@@ -1,12 +1,13 @@
 import '../MovieCard.css'
 import PlaceHolderImg from '../assets/movie-img-placeholder.png';
 
-const MovieCard = () => {
+const MovieCard = ({title}) => {
+  console.log(title);
   return (
     <div className="movie-card">
         <img src={PlaceHolderImg}/>
-        <p>Movie Title</p>
-        <p>Rating: XX</p>
+        <p>{title}</p>
+        {/* <p>{rating}</p> */}
     </div>
   )
 }

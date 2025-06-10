@@ -4,6 +4,7 @@ import MovieList from './components/MovieList'
 import Header from './components/Header'
 
 const App = () => {
+
   return (
     <div className="App">
       <Header />
@@ -12,4 +13,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;

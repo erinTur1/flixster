@@ -1,8 +1,9 @@
 .movie-card {
-    background-color: rgb(84, 81, 81);
+    /* background-color: rgb(84, 81, 81); */
+    background-color: #282c34;
     width: 250px;
     height: 370px;
-    margin: 20px;
+    margin: 5px;
     box-shadow: 7px 7px 5px rgb(114, 112, 112);
 }
 
