@@ -12,9 +12,10 @@ const parseMovieData = (movieData) => {
 }
 
 const sortMovieData = (sortParam, movies) => {
-    console.log(movies);
+    let tempMovies = [...movies]
+    console.log('sort movie data start', tempMovies)
     if (sortParam === "title") {
-        movies.sort((a, b) => {
+        tempMovies.sort((a, b) => {
             if (a.title > b.title) {
                 return 1;
             }
@@ -26,14 +27,16 @@ const sortMovieData = (sortParam, movies) => {
     } else if (sortParam === "release") {
 
         //NEED TO FIX
-        movies.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
+        tempMovies.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
 
     } else if (sortParam === "vote-avg") {
-        movies.sort((a, b) => a.vote_average - b.vote_average );
+        tempMovies.sort((a, b) => a.vote_average - b.vote_average );
     } else {
         //IMPROVE - EDGE CASE
         console.log("no valid sort parameter");
     }
+    console.log('sort movie data end', tempMovies)
+    return tempMovies
 }
 
 

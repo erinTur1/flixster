@@ -3,10 +3,9 @@ import '../styles/SortForm.css';
 function SortForm({ onSelectChange }) {
 
     const handleSelect = (event) => {
+        console.log('inside handle sort form', event.target.value)
         onSelectChange(event.target.value);
     }
-
-
     return (
         <div className="sort-form">
             <select name="sort-by" id="sort-input" defaultValue="" onChange={handleSelect}>
