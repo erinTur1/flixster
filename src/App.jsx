@@ -6,8 +6,6 @@ import SearchForm from './components/SearchForm'
 import SortForm from './components/SortForm'
 
 const App = () => {
-  console.log("reload");
-
   const [searchQuery, setSearchQuery] = useState('');
   const [toggleValue, setToggleValue] = useState('now playing');
 
@@ -20,11 +18,8 @@ const App = () => {
   }
 
   const handleSearchQuerySubmit = (newSearchQuery) => {
-    // console.log("function2 ", newSearchQuery);
-    // setSearchQuery(newSearchQuery);
-    //toggle to search
+    setSearchQuery(newSearchQuery); //MAY BE ABLE TO DELETE THIS LINE OF CODE
     setToggleValue('searched');
-    //call fetch for searched title
   }
 
   return (
@@ -32,6 +27,12 @@ const App = () => {
       <Header/>
       <SearchForm searchQuery1={searchQuery} onSearchChange={handleSearchQueryChange} onSubmitSearch={handleSearchQuerySubmit}/>
       <SortForm />
+      <button onClick={() => {
+        setToggleValue('now playing');
+      }}>Now playing</button>
+      <button onClick={() => {
+            setToggleValue('searched');
+        }}>Search Results</button>
       <MovieList searchQuery1={searchQuery} currDisplay={toggleValue}/>
     </div>
   )

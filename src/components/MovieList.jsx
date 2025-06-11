@@ -6,30 +6,20 @@ import '../styles/MovieList.css';
 
 
 const MovieList = ({searchQuery1, currDisplay}) => {
-    // console.log(currDisplay + "-" + searchQuery1);
-    // let title = null;
-    const [nowPlaying, setNowPlaying] = useState([]);
+    const [currMoviesList, setCurrMoviesList] = useState([]);
     const [numPages, setNumPages] = useState(1);
     const [isModalVisible, setModalVisible] = useState(false);
-    const [modalData, setModalData] = useState('');
-
-    //const [searchData, setSearchData] = useState(searchQuery1);
-
-    
-    // useEffect( () => {
-    //     //setSearchData(searchQuery1);
-    //     fetchData();
-    // }, [currDisplay]); 
+    const [modalData, setModalData] = useState(<></>);
 
     useEffect(() => {
+        //setNowPlaying((prevArr) => []);
         fetchData(); 
     }, [numPages, currDisplay]);
 
-    const handleClearMoviesList = () => {
-        console.log("clear");
-        setNowPlaying([]);
-        window.location.reload(true);
-    }
+    // const handleClearMoviesList = () => {
+    //     setCurrMoviesList([]);
+    //     window.location.reload(true);
+    // }
     
     // if (currDisplay === 'searched') {
     //     handleClearMoviesList();
@@ -37,19 +27,16 @@ const MovieList = ({searchQuery1, currDisplay}) => {
   
     async function fetchData (){
 
-        console.log("called fetch data " + searchQuery1);
-
         let url = '';
         if (currDisplay === 'searched') {
             // handleClearMoviesList();
             url = `https://api.themoviedb.org/3/search/movie?query=${searchQuery1}&include_adult=false&language=en-US&page=${numPages}`;
-            // url = `https://api.themoviedb.org/3/search/keyword?query=${searchQuery1}&page=1`;
         } else if (currDisplay === 'now playing') {
+            console.log("in now playing")
             url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${numPages}`;
         }
 
 
-        // const url = `https://api.themoviedb.org/3/search/keyword?query=${searchQuery1}&page=1`;
         const options = {
                 method: 'GET',
                 headers: {
@@ -66,12 +53,18 @@ const MovieList = ({searchQuery1, currDisplay}) => {
             }
             const jsonData = await response.json();
             console.log(jsonData.results);
-            if (currDisplay === 'searched') {
-                setNowPlaying([...jsonData.results]);
-                // setNowPlaying([...nowPlaying, ...jsonData.results]);
-            } else {
-                setNowPlaying([...nowPlaying, ...jsonData.results]);
-            }
+            // if (currDisplay === 'searched') {
+            //     setNowPlaying([...jsonData.results]);
+            //     // setNowPlaying([...nowPlaying, ...jsonData.results]);
+            // } else {
+            //     // setNowPlaying([...nowPlaying, ...jsonData.results]);
+            //     setNowPlaying([...jsonData.results]);
+            // }
+            
+            setCurrMoviesList((prevArr) => []); 
+            
+            setCurrMoviesList((prevArr) => [...prevArr, ...jsonData.results]);
+            //setNowPlaying([...jsonData.results]);
         } catch (error) {
             console.error(error.message);
         }
@@ -81,13 +74,19 @@ const MovieList = ({searchQuery1, currDisplay}) => {
         setNumPages(numPages => numPages + 1);
     }
 
-    const openModal = (title) => {
-        setModalData(title);
+    const openModal = (movieCardData) => {
+        setModalData(
+            <>
+                <p>{movieCardData.title}</p>
+                <img src={"https://image.tmdb.org/t/p/w500" + movieCardData.img}/>
+                <p>{movieCardData.release_date}</p>
+                <p>{movieCardData.overview}</p>
+            </>
+        );
         setModalVisible(true);
     }
 
     const closeModal = () => {
-        console.log("hihihi");
         setModalVisible(false);
     }
 
@@ -97,14 +96,12 @@ const MovieList = ({searchQuery1, currDisplay}) => {
         <>
         <>
         <div className="movie-list-container">
-            {nowPlaying.map((movie) => {
+            {currMoviesList.map((movie) => {
                 return (
                     <MovieCard 
-                        key={movie?.id}
-                        img={movie?.poster_path}
-                        title={movie?.title}
-                        rating={movie?.vote_average} 
                         displayModal={openModal}
+                        key={movie?.id}
+                        data={movie}
                     />
                 );
             })}
@@ -112,7 +109,7 @@ const MovieList = ({searchQuery1, currDisplay}) => {
         <button onClick={addPage} title="Load More">Load More</button>
         </>
         <Modal isVisible={isModalVisible} onClose={closeModal}> 
-            <p>{modalData}</p>
+            {modalData}
         </Modal>
         </>
     )
