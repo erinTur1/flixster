@@ -1,24 +1,30 @@
 import { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
 import Modal from './Modal';
+import { sortMovieData } from '../utils/utils';
 import '../styles/MovieList.css';
 
 
 
-const MovieList = ({searchQuery1, currDisplay}) => {
+const MovieList = ({searchRequest, currDisplay, sortQuery}) => {
+    // console.log("sort query: " + sortQuery);
     const [currMoviesList, setCurrMoviesList] = useState([]);
     const [numPages, setNumPages] = useState(1);
     const [isModalVisible, setModalVisible] = useState(false);
     const [modalData, setModalData] = useState(<></>);
 
     useEffect(() => {
-        //setNowPlaying((prevArr) => []);
+        // setCurrMoviesList([]);
         fetchData(); 
-    }, [numPages, currDisplay]);
+    }, [numPages, currDisplay, sortQuery]);
+
+    useEffect(() => {
+        setCurrMoviesList([]);
+        fetchData(); 
+    }, [currDisplay])
 
     // const handleClearMoviesList = () => {
     //     setCurrMoviesList([]);
-    //     window.location.reload(true);
     // }
     
     // if (currDisplay === 'searched') {
@@ -30,7 +36,7 @@ const MovieList = ({searchQuery1, currDisplay}) => {
         let url = '';
         if (currDisplay === 'searched') {
             // handleClearMoviesList();
-            url = `https://api.themoviedb.org/3/search/movie?query=${searchQuery1}&include_adult=false&language=en-US&page=${numPages}`;
+            url = `https://api.themoviedb.org/3/search/movie?query=${searchRequest}&include_adult=false&language=en-US&page=${numPages}`;
         } else if (currDisplay === 'now playing') {
             console.log("in now playing")
             url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${numPages}`;
@@ -52,7 +58,10 @@ const MovieList = ({searchQuery1, currDisplay}) => {
                 throw new Error(`Failed to fetch movie data: \nResponse status: ${response.status}`)
             }
             const jsonData = await response.json();
-            console.log(jsonData.results);
+            // console.log(jsonData.results);
+            if (sortQuery !== '') {
+                const sortedData = sortMovieData(sortQuery, jsonData.results);
+            }
             // if (currDisplay === 'searched') {
             //     setNowPlaying([...jsonData.results]);
             //     // setNowPlaying([...nowPlaying, ...jsonData.results]);
@@ -61,7 +70,7 @@ const MovieList = ({searchQuery1, currDisplay}) => {
             //     setNowPlaying([...jsonData.results]);
             // }
             
-            setCurrMoviesList((prevArr) => []); 
+            // setCurrMoviesList((prevArr) => []); 
             
             setCurrMoviesList((prevArr) => [...prevArr, ...jsonData.results]);
             //setNowPlaying([...jsonData.results]);

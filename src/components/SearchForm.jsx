@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import '../styles/SearchForm.css';
 
-function SearchForm({searchQuery1, onSearchChange, onSubmitSearch}) {
+function SearchForm({searchRequest, onSearchChange, onSubmitSearch}) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -18,7 +18,7 @@ function SearchForm({searchQuery1, onSearchChange, onSubmitSearch}) {
     return (
         <div className="search-form" onSubmit={handleSubmit}>
             <form>
-                <input type="text" id="title" name="movie-title" placeholder="Search for movies" onChange={handleSearchChange} value={searchQuery1}/>
+                <input type="text" id="title" name="movie-title" placeholder="Search for movies" onChange={handleSearchChange} value={searchRequest}/>
                 <input type="submit" value="Search" />
             </form>
        </div>

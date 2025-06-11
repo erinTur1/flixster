@@ -24,7 +24,7 @@ const MovieCard = ({data, displayModal}) => {
     <div className="movie-card" onClick={handleDisplayModal}>
         <img src={"https://image.tmdb.org/t/p/w500" + parsedData.movieImg}/>
         <p>{parsedData.movieTitle}</p>
-        <p>{parsedData.movieRating}</p>
+        <p>Vote average: {parsedData.movieRating}</p>
     </div>
   )
 }

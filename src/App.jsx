@@ -8,13 +8,10 @@ import SortForm from './components/SortForm'
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [toggleValue, setToggleValue] = useState('now playing');
+  const [sortRequest, setSortRequest] = useState('');
 
   const handleSearchQueryChange = (newSearchQuery) => {
-    // console.log("function1 ", newSearchQuery);
     setSearchQuery(newSearchQuery);
-    //toggle to search
-    // setToggleValue('searched');
-    //call fetch for searched title
   }
 
   const handleSearchQuerySubmit = (newSearchQuery) => {
@@ -22,18 +19,24 @@ const App = () => {
     setToggleValue('searched');
   }
 
+  const handleSortRequest = (selectedOption) => {
+    // console.log("user selected: " + selectedOption);
+    setSortRequest(selectedOption);
+  
+  }
+
   return (
     <div className="App">
       <Header/>
-      <SearchForm searchQuery1={searchQuery} onSearchChange={handleSearchQueryChange} onSubmitSearch={handleSearchQuerySubmit}/>
-      <SortForm />
+      <SearchForm searchRequest={searchQuery} onSearchChange={handleSearchQueryChange} onSubmitSearch={handleSearchQuerySubmit}/>
+      <SortForm onSelectChange={handleSortRequest}/>
       <button onClick={() => {
         setToggleValue('now playing');
       }}>Now playing</button>
       <button onClick={() => {
-            setToggleValue('searched');
-        }}>Search Results</button>
-      <MovieList searchQuery1={searchQuery} currDisplay={toggleValue}/>
+        setToggleValue('searched');
+      }}>Search Results</button>
+      <MovieList searchRequest={searchQuery} currDisplay={toggleValue} sortQuery={sortRequest}/>
     </div>
   )
 }
