@@ -1,4 +1,4 @@
-import '../SortForm.css';
+import '../styles/SortForm.css';
 
 function SortForm() {
     return (

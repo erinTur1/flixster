@@ -1,7 +1,12 @@
-import '../MovieCard.css'
-import PlaceHolderImg from '../assets/movie-img-placeholder.png';
+import '../styles/MovieCard.css'
 
 const MovieCard = ({img, title, rating}) => {
+
+  //IMPORTANT!:
+  //consider having a data object passed to MovieCard and a separate parseData() function included in utils and used here
+    //move the state to App.jsx?
+
+
   return (
     <div className="movie-card">
         <img src={"https://image.tmdb.org/t/p/w500" + img}/>

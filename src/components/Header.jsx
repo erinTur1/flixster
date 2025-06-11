@@ -1,14 +1,14 @@
-import '../Header.css';
+import '../styles/Header.css';
 import SearchForm from './SearchForm';
 import SortForm from './SortForm';
 
-const Header = () => {
+const Header = ({searchQuery, onSearchChange}) => {
     return (<header>
-        <SearchForm />
+        {/* <SearchForm searchQuery1={searchQuery} onSearchChange1={onSearchChange}/> */}
         <div className="title-div">
             <h1>Flixster</h1>
         </div>
-        <SortForm />
+        {/* <SortForm /> */}
     </header>)
 }
 
