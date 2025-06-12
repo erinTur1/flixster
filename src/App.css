@@ -11,12 +11,22 @@
 }
 
 .selected {
-  background-color: blue;
+  background-color: #215ac6;
+}
+
+.loadMoreBtn {
+  background-color: #5c6678;
+  padding: 15px;
+  width: 40vw;
+  margin-top: 20px;
+}
+
+.loadMoreBtn:hover {
+  background-color: #215ac6;
 }
 
 
 
-/* REMOVE?? */
 .App {
   text-align: center;
 }

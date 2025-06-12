@@ -3,8 +3,8 @@ footer{
     height: 70px;
     display: block;
     background-color: #040404;
-    position: fixed;
-    bottom: 0px;
+    /* position: fixed;
+    bottom: 0px; */
 }
 
 #footer-text {

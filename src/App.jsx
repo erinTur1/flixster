@@ -177,7 +177,7 @@ const App = () => {
         setToggleValue('searched');
       }}>Search Results</button>
       <MovieList movies={toggleValue === 'now playing'? nowPlayingList: searchResultsList}/>
-      <button onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button>
+      <button className="loadMoreBtn" onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button>
       <Footer />
     </div>
   )
