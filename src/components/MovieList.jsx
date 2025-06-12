@@ -1,7 +1,17 @@
 import { useState } from 'react';
+//for random key generation - api has repeated movies in its database, so when react elements are rendered, non-unique keys results in errors
+import { v4 as uuidv4 } from 'uuid'; 
 import MovieCard from './MovieCard';
 import Modal from './Modal';
 import '../styles/MovieList.css';
+
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: `Bearer ${import.meta.env.VITE_READ_ACCESS_TOKEN}`
+  }
+};
 
 const MovieList = ({ movies }) => {
 
@@ -15,9 +25,9 @@ const MovieList = ({ movies }) => {
     const fetchModalData = async (movie_id) => {
 
         const url = `https://api.themoviedb.org/3/movie/${movie_id}?language=en-US`;
-        
+
         try {
-            const response = await fetch(url, ); 
+            const response = await fetch(url, options); 
             if (!response.ok) {
                 throw new Error(`Failed to fetch movie data: \nResponse status: ${response.status}`)
             }
@@ -62,11 +72,11 @@ const MovieList = ({ movies }) => {
         <>
         <>
         <div className="movie-list-container">
-            {movies.map((movie) => {
+            {movies.map((movie, index) => {
                 return (
                     <MovieCard 
                         displayModal={openModal}
-                        key={movie?.id}
+                        key={uuidv4()}
                         data={movie}
                     />
                 );

@@ -33,12 +33,10 @@ const App = () => {
   //decided to have num pages state for each movie list so that if user chooses to load more for one, they aren't affecting the other list
   const [numPagesNowPlayingList, setNumPagesNowPlayingList] = useState(1);
   const [numPagesSearchResultsList, setNumPagesSearchResultsList] = useState(1);
+  const [isLoadMoreVisible, setIsLoadMoreVisible] = useState(true);
+  const [limitReachedSearchResults, setLimitReachedSearchResults] = useState(false);
+
   
-
-
-  useEffect(() => {
-    fetchNowPlayingData();
-  }, []);
 
   //need to fetch data when user loads more - i.e increases the number of pages shown
   useEffect(() => {
@@ -62,6 +60,8 @@ const App = () => {
   useEffect(() => {
     //we only want to fetch data if "search" was selected
     if (searchIsComplete) {
+      setNumPagesSearchResultsList(1);
+      setLimitReachedSearchResults(false);
       fetchSearchedData();
     }
   }, [searchIsComplete]);
@@ -78,6 +78,7 @@ const App = () => {
       //nothing was searched for
       setSearchResultsList([]);
       setSearchIsComplete(false);
+
       setToggleValue('now playing'); //show now playing movies instead
     } else {
       //there is a search query
@@ -119,6 +120,11 @@ const App = () => {
               throw new Error(`Failed to fetch movie data: \nResponse status: ${response.status}`)
           }
           const jsonData = await response.json();
+
+          if (jsonData.results.length == 0 && numPagesSearchResultsList > 1) {
+            console.log("limit reached");
+            setLimitReachedSearchResults(true);
+          }
                 
           setSearchResultsList([...searchResultsList, ...jsonData.results]);
                         
@@ -140,11 +146,15 @@ const App = () => {
 
   //these two are triggered on "load more" button click
 
-  const addPageNowPlaying = async () => {
+  const addPageNowPlaying = () => {
         setNumPagesNowPlayingList(numPagesNowPlayingList => numPagesNowPlayingList + 1);
   }
 
-  const addPageSearchList = async () => {
+  const addPageSearchList = () => {
+        // if ((numPagesSearchResultsList + 1) === totalPagesSearchResults) {
+        //   setIsLoadMoreVisible(false);
+        //   console.log("hide");
+        // }
         setNumPagesSearchResultsList(numPagesSearchResultsList => numPagesSearchResultsList + 1);
   }
 
@@ -162,7 +172,8 @@ const App = () => {
         setToggleValue('searched');
       }}>Search Results</button>
       <MovieList movies={toggleValue === 'now playing'? nowPlayingList: searchResultsList}/>
-      <button className="loadMoreBtn" onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button>
+      <button className={limitReachedSearchResults && toggleValue === 'searched'?"loadMoreBtn hidden":"loadMoreBtn"} onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button>
+      {/* <button className="loadMoreBtn" onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button> */}
       <Footer />
     </div>
   )

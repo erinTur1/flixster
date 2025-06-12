@@ -21,6 +21,10 @@
   margin-top: 20px;
 }
 
+.hidden {
+  display: none;
+}
+
 .loadMoreBtn:hover {
   background-color: #215ac6;
 }
