@@ -7,20 +7,28 @@ import SortForm from './components/SortForm'
 import { sortMovieData } from './utils/utils';
 import './App.css'
 
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: `Bearer ${import.meta.env.VITE_READ_ACCESS_TOKEN}`
+  }
+};
 
 
 const App = () => {
-  //search and sort forms
+  //state necessary for search and sort forms
+
   const [searchQuery, setSearchQuery] = useState('');
   const [searchIsComplete, setSearchIsComplete] = useState(false);
-  // const [toggleValue, setToggleValue] = useState('now playing');
   const [sortRequest, setSortRequest] = useState('');
 
-  //data fetching
+  //state necessary for movie lists
+
+  //toggleValue controls what list is visible to the user: now playing movies or results from their search
   const [toggleValue, setToggleValue] = useState('now playing');
   const [nowPlayingList, setNowPlayingList] = useState([]);
   const [searchResultsList, setSearchResultsList] = useState([]);
-  // const [numPages, setNumPages] = useState(1);
 
   //decided to have num pages state for each movie list so that if user chooses to load more for one, they aren't affecting the other list
   const [numPagesNowPlayingList, setNumPagesNowPlayingList] = useState(1);
@@ -32,6 +40,7 @@ const App = () => {
     fetchNowPlayingData();
   }, []);
 
+  //need to fetch data when user loads more - i.e increases the number of pages shown
   useEffect(() => {
     fetchNowPlayingData();
   }, [numPagesNowPlayingList]);
@@ -40,60 +49,50 @@ const App = () => {
     fetchSearchedData();
   }, [numPagesSearchResultsList]);
 
+  //when sort request is submitted, call sortMovies
   useEffect(() => {
-    console.log('inside sort use effect')
     if (toggleValue === 'now playing') {
-      console.log('inside sort use effect | now playing')
       sortMovies(nowPlayingList);
     } else if (toggleValue === 'searched') {
-      console.log('inside sort use effect | searched')
       sortMovies(searchResultsList);
     }
   }, [sortRequest]);
     
-
+  //searchIsComplete changes when "search" or "clear" are clicked
   useEffect(() => {
+    //we only want to fetch data if "search" was selected
     if (searchIsComplete) {
       fetchSearchedData();
     }
   }, [searchIsComplete]);
 
-  //search and sort forms
+  //callbacks for search and sort forms
+
+  //updates search query string state as it is changed
   const handleSearchQueryChange = (newSearchQuery) => {
     setSearchQuery(newSearchQuery);
   }
 
   const handleSearchQuerySubmit = (newSearchQuery) => {
     if (newSearchQuery === '') {
+      //nothing was searched for
       setSearchResultsList([]);
       setSearchIsComplete(false);
-      setToggleValue('now playing');
+      setToggleValue('now playing'); //show now playing movies instead
     } else {
-      // setSearchQuery(newSearchQuery); //MAY BE ABLE TO DELETE THIS LINE OF CODE
+      //there is a search query
       setSearchIsComplete(true);
       setToggleValue('searched');
     }
   }
 
   const handleSortRequest = (selectedOption) => {
-    console.log("user selected: " + selectedOption);
     setSortRequest(selectedOption);
   }
 
-  //data fetching
-  async function fetchNowPlayingData (){
+  const fetchNowPlayingData = async() => {
 
         const url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${numPagesNowPlayingList}`;
-
-
-        const options = {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `Bearer ${import.meta.env.VITE_READ_ACCESS_TOKEN}`
-            }
-        };
-
 
         try {
             const response = await fetch(url, options);
@@ -110,19 +109,9 @@ const App = () => {
     }
 
 
-  async function fetchSearchedData (){
+  const fetchSearchedData = async() => {
 
       const url = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=${numPagesSearchResultsList}`;
-
-
-      const options = {
-              method: 'GET',
-              headers: {
-                  accept: 'application/json',
-                  Authorization: `Bearer ${import.meta.env.VITE_READ_ACCESS_TOKEN}`
-          }
-      };
-
 
       try {
           const response = await fetch(url, options);
@@ -130,9 +119,6 @@ const App = () => {
               throw new Error(`Failed to fetch movie data: \nResponse status: ${response.status}`)
           }
           const jsonData = await response.json();
-          // if (sortRequest !== '') {
-          //     const sortedData = sortMovieData(sortRequest, jsonData.results);
-          // }
                 
           setSearchResultsList([...searchResultsList, ...jsonData.results]);
                         
@@ -142,18 +128,17 @@ const App = () => {
   }
 
   const sortMovies = (movieList) => {
-    console.log('start sort movies', movieList)
     if (toggleValue === 'now playing') {
-      console.log('start sort movies | now playing')
       const updatedMovies = sortMovieData(sortRequest, movieList);
       setNowPlayingList(updatedMovies)
     } else if (toggleValue === 'searched') {
-      console.log('start sort movies | searched')
       const updatedMovies = sortMovieData(sortRequest, movieList);
       setSearchResultsList(updatedMovies)
     }
   }
 
+
+  //these two are triggered on "load more" button click
 
   const addPageNowPlaying = async () => {
         setNumPagesNowPlayingList(numPagesNowPlayingList => numPagesNowPlayingList + 1);

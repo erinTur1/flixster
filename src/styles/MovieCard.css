@@ -4,6 +4,7 @@
     height: 50vh;
     margin: 5px;
     box-shadow: 5px 5px 3px rgb(114, 112, 112);
+    overflow: scroll;
 }
 
 .movie-card img {

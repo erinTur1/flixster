@@ -1,24 +1,16 @@
-import '../styles/MovieCard.css'
 import { parseMovieData } from '../utils/utils';
+import '../styles/MovieCard.css'
+
 
 const MovieCard = ({data, displayModal}) => {
 
-  //IMPORTANT!:
-  //consider having a data object passed to MovieCard and a separate parseData() function included in utils and used here
-    //move the state to App.jsx?
-
+  //MovieCard is passed an object of movie details for each movie, parse so we only get the desired details
   const parsedData = data ? parseMovieData(data) : [];
 
+  //callback function that is triggered when a MovieCard is clicked
   const handleDisplayModal = () => {
-    displayModal(
-      {
-        id: parsedData.movieId,
-        title: parsedData.movieTitle,
-        img: parsedData.movieImg,
-        release_date: parsedData.movieReleaseDate,
-        overview: parsedData.movieOverview,
-      }
-    );
+    //calls displayModal located in MovieList.jsx and passes only the id of the movie
+    displayModal(parsedData.movieId);
   }
 
   return (

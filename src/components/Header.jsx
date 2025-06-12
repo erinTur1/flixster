@@ -1,9 +1,7 @@
-import '../styles/Header.css';
 import logo from '../assets/flixster_logo.png';
-import SearchForm from './SearchForm';
-import SortForm from './SortForm';
+import '../styles/Header.css';
 
-const Header = ({searchQuery, onSearchChange}) => {
+const Header = () => {
     return (<header>
         <div className="title-div">
             <span>

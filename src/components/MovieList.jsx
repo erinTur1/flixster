@@ -1,29 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import MovieCard from './MovieCard';
 import Modal from './Modal';
 import '../styles/MovieList.css';
 
 const MovieList = ({ movies }) => {
-    //for modal
+
+    //Note: MovieList handles fetching for specific modal data and it contains the callback functions for changing the visibility of the modal
+
+    //State for modal visibility and data
     const [isModalVisible, setModalVisible] = useState(false);
     const [modalData, setModalData] = useState(<></>);
 
-    async function fetchModalData (movie_id){
+    //Need the movie's id for another api call. Another call is necessary to get more details about the movie for the modal
+    const fetchModalData = async (movie_id) => {
 
         const url = `https://api.themoviedb.org/3/movie/${movie_id}?language=en-US`;
-
-
-        const options = {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `Bearer ${import.meta.env.VITE_READ_ACCESS_TOKEN}`
-            }
-        };
-
-
+        
         try {
-            const response = await fetch(url, options);
+            const response = await fetch(url, ); 
             if (!response.ok) {
                 throw new Error(`Failed to fetch movie data: \nResponse status: ${response.status}`)
             }
@@ -36,34 +30,33 @@ const MovieList = ({ movies }) => {
         }
     }
 
+    //called when a MovieCard is clicked
+    const openModal = async (movieCardId) => {
 
-    //For modal
-    const openModal = async (movieCardData) => {
-
-        const modalData = await fetchModalData(movieCardData.id);
-        console.log(modalData);
+        //fetch more movie details, using the movie's id
+        const fetchedModalData = await fetchModalData(movieCardId);
 
         setModalData(
             <>
-                <p>{modalData.title}</p>
-                <img src={"https://image.tmdb.org/t/p/w500" + modalData.poster_path} alt={"poster image of " + modalData.title}/>
-                <p>{modalData.overview}</p>
-                <p>Release date: {modalData.release_date}</p>
-                <p>Runtime: {modalData.runtime} minutes</p>
+                <p>{fetchedModalData.title}</p>
+                <img src={"https://image.tmdb.org/t/p/w500" + fetchedModalData.poster_path} alt={"poster image of " + fetchedModalData.title}/>
+                <p>{fetchedModalData.overview}</p>
+                <p>Release date: {fetchedModalData.release_date}</p>
+                <p>Runtime: {fetchedModalData.runtime} minutes</p>
                 <p>Genres:</p>
-                {modalData.genres.map((genre) => {
+                {fetchedModalData.genres.map((genre) => {
                     return <span>{genre.name},</span>
                 })}
             </>
         );
-        // setModalDataId(movieCardData.id);
         setModalVisible(true);
     }
 
+    //called when "close" button on modal is clicked
     const closeModal = () => {
         setModalVisible(false);
     }
-    //
+    
 
     return (
         <>

@@ -1,3 +1,5 @@
+//Helper functions
+
 const parseMovieData = (movieData) => {
     return (
         {
@@ -14,8 +16,8 @@ const parseMovieData = (movieData) => {
 
 const sortMovieData = (sortParam, movies) => {
     let tempMovies = [...movies]
-    console.log('sort movie data start', tempMovies)
     if (sortParam === "title") {
+        //sort A-Z
         tempMovies.sort((a, b) => {
             if (a.title > b.title) {
                 return 1;
@@ -26,18 +28,13 @@ const sortMovieData = (sortParam, movies) => {
             return 0;
         });
     } else if (sortParam === "release") {
-
-        //NEED TO FIX
-        tempMovies.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
-
+        //sort release date most recent to oldest
+        tempMovies.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
     } else if (sortParam === "vote-avg") {
+        //sort vote average highest to lowest
         tempMovies.sort((a, b) => b.vote_average - a.vote_average );
-    } else {
-        //IMPROVE - EDGE CASE
-        console.log("no valid sort parameter");
     }
-    console.log('sort movie data end', tempMovies)
-    return tempMovies
+    return tempMovies;
 }
 
 

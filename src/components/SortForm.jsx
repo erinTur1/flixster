@@ -1,9 +1,9 @@
 import '../styles/SortForm.css';
 
-function SortForm({ onSelectChange }) {
+const SortForm = ({ onSelectChange }) => {
 
     const handleSelect = (event) => {
-        console.log('inside handle sort form', event.target.value)
+        //callback in App.jsx that will trigger a movie list sort
         onSelectChange(event.target.value);
     }
     return (
