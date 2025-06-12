@@ -18,7 +18,11 @@ const App = () => {
   const [toggleValue, setToggleValue] = useState('now playing');
   const [nowPlayingList, setNowPlayingList] = useState([]);
   const [searchResultsList, setSearchResultsList] = useState([]);
-  const [numPages, setNumPages] = useState(1);
+  // const [numPages, setNumPages] = useState(1);
+
+  //decided to have num pages state for each movie list so that if user chooses to load more for one, they aren't affecting the other list
+  const [numPagesNowPlayingList, setNumPagesNowPlayingList] = useState(1);
+  const [numPagesSearchResultsList, setNumPagesSearchResultsList] = useState(1);
   
 
 
@@ -28,7 +32,11 @@ const App = () => {
 
   useEffect(() => {
     fetchNowPlayingData();
-  }, [numPages]);
+  }, [numPagesNowPlayingList]);
+
+  useEffect(() => {
+    fetchSearchedData();
+  }, [numPagesSearchResultsList]);
 
   useEffect(() => {
     console.log('inside sort use effect')
@@ -42,6 +50,7 @@ const App = () => {
   }, [sortRequest]);
     
 
+  //problem here - set to false again so data is fetched again which we dont want
   useEffect(() => {
     fetchSearchedData();
   }, [searchIsComplete]);
@@ -52,9 +61,15 @@ const App = () => {
   }
 
   const handleSearchQuerySubmit = (newSearchQuery) => {
-    // setSearchQuery(newSearchQuery); //MAY BE ABLE TO DELETE THIS LINE OF CODE
-    setSearchIsComplete(true);
-    setToggleValue('searched');
+    if (newSearchQuery === '') {
+      setSearchResultsList([]);
+      // setSearchIsComplete(false);
+      setToggleValue('now playing');
+    } else {
+      // setSearchQuery(newSearchQuery); //MAY BE ABLE TO DELETE THIS LINE OF CODE
+      setSearchIsComplete(true);
+      setToggleValue('searched');
+    }
   }
 
   const handleSortRequest = (selectedOption) => {
@@ -65,7 +80,7 @@ const App = () => {
   //data fetching
   async function fetchNowPlayingData (){
 
-        const url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${numPages}`;
+        const url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${numPagesNowPlayingList}`;
 
 
         const options = {
@@ -94,7 +109,7 @@ const App = () => {
 
   async function fetchSearchedData (){
 
-      const url = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=${numPages}`;
+      const url = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=${numPagesSearchResultsList}`;
 
 
       const options = {
@@ -132,13 +147,18 @@ const App = () => {
     } else if (toggleValue === 'searched') {
       console.log('start sort movies | searched')
       const updatedMovies = sortMovieData(sortRequest, movieList);
-      setSearchResultsList('searched', updatedMovies)
+      setSearchResultsList(updatedMovies)
     }
   }
 
-  const addPage = async () => {
-        setNumPages(numPages => numPages + 1);
-    }
+
+  const addPageNowPlaying = async () => {
+        setNumPagesNowPlayingList(numPagesNowPlayingList => numPagesNowPlayingList + 1);
+  }
+
+  const addPageSearchList = async () => {
+        setNumPagesSearchResultsList(numPagesSearchResultsList => numPagesSearchResultsList + 1);
+  }
 
   return (
     <div className="App">
@@ -152,7 +172,7 @@ const App = () => {
         setToggleValue('searched');
       }}>Search Results</button>
       <MovieList movies={toggleValue === 'now playing'? nowPlayingList: searchResultsList}/>
-      <button onClick={addPage} title="Load More">Load More</button>
+      <button onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button>
 
     </div>
   )
