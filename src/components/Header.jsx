@@ -7,7 +7,7 @@ const Header = ({searchQuery, onSearchChange}) => {
     return (<header>
         <div className="title-div">
             <span>
-                <img id="logo-img" src={logo}/>
+                <img id="logo-img" src={logo} alt="image of logo of Flixster"/>
                 <h1>Flixster</h1>
             </span>
         </div>

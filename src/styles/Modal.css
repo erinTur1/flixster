@@ -6,6 +6,7 @@
     width: 150vw;
     height: 150vh;
     background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
     
 }
 
@@ -19,7 +20,7 @@
     position: fixed;
     left: 50%;
     top: 40%;
-    transform: translate(-50%, -50%);    
+    transform: translate(-40%, -50%);    
 }
 
 .modal-popup * {
@@ -31,6 +32,13 @@
     max-width: 30%;
     max-height: 30%;
     box-shadow: 10px 10px 10px rgb(114, 112, 112);
+}
+
+.modal-content button {
+    background-color: #768198;
+    width: 7vw;
+    height: 7vh;
+    margin-top: 12px;
 }
 
 .modal-content {

@@ -46,7 +46,7 @@ const MovieList = ({ movies }) => {
         setModalData(
             <>
                 <p>{modalData.title}</p>
-                <img src={"https://image.tmdb.org/t/p/w500" + modalData.poster_path}/>
+                <img src={"https://image.tmdb.org/t/p/w500" + modalData.poster_path} alt={"poster image of " + modalData.title}/>
                 <p>{modalData.overview}</p>
                 <p>Release date: {modalData.release_date}</p>
                 <p>Runtime: {modalData.runtime} minutes</p>

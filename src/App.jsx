@@ -170,10 +170,10 @@ const App = () => {
         <SearchForm searchQuery={searchQuery} onSearchChange={handleSearchQueryChange} onSubmitSearch={handleSearchQuerySubmit}/>
         <SortForm onSelectChange={handleSortRequest}/>
       </section>
-      <button onClick={() => {
+      <button className={toggleValue === 'now playing'? "selected toggleBtn":"toggleBtn"} onClick={() => {
         setToggleValue('now playing');
       }}>Now playing</button>
-      <button onClick={() => {
+      <button className={toggleValue === 'searched'? "selected toggleBtn":"toggleBtn"} onClick={() => {
         setToggleValue('searched');
       }}>Search Results</button>
       <MovieList movies={toggleValue === 'now playing'? nowPlayingList: searchResultsList}/>

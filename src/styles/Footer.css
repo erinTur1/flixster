@@ -1,13 +1,14 @@
 footer{
     width: 100%;
-    height: 120px;
+    height: 70px;
     display: block;
     background-color: #040404;
-    
+    position: fixed;
+    bottom: 0px;
 }
 
 #footer-text {
-    padding-top: 10px;
-    font-size: 2em;
+    padding-bottom: 10px;
+    font-size: 25px;
     font-weight: bold;
 }
