@@ -12,6 +12,7 @@ const MovieCard = ({data, displayModal}) => {
   const handleDisplayModal = () => {
     displayModal(
       {
+        id: parsedData.movieId,
         title: parsedData.movieTitle,
         img: parsedData.movieImg,
         release_date: parsedData.movieReleaseDate,

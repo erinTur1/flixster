@@ -1,3 +1,13 @@
+
+.search-sort-area {
+  display: flex;
+  flex-direction: row;
+  background-color: #040404;
+  margin-bottom: 30px;
+}
+
+
+/* REMOVE?? */
 .App {
   text-align: center;
 }

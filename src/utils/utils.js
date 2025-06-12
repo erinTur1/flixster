@@ -1,6 +1,7 @@
 const parseMovieData = (movieData) => {
     return (
         {
+            movieId: movieData.id,
             movieTitle: movieData.title,
             movieImg: movieData.poster_path,
             movieRating: movieData.vote_average,
@@ -30,7 +31,7 @@ const sortMovieData = (sortParam, movies) => {
         tempMovies.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
 
     } else if (sortParam === "vote-avg") {
-        tempMovies.sort((a, b) => a.vote_average - b.vote_average );
+        tempMovies.sort((a, b) => b.vote_average - a.vote_average );
     } else {
         //IMPROVE - EDGE CASE
         console.log("no valid sort parameter");

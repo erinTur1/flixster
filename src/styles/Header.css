@@ -2,11 +2,16 @@ header {
     width: 100%;
     height: 120px;
     display: block;
-    background-color: #181717;
+    background-color: #040404;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items:flex-end;
+}
+
+#logo-img {
+    height: 5%;
+    width: 5%;
 }
 
 .title-div {
@@ -14,6 +19,11 @@ header {
     align-self: center;
     flex-grow: 1;
 }   
+
+.title-div span {
+    display: flex;
+    flex-direction: row;
+}
 
 .title-div h1 {
     text-shadow: rgb(114, 112, 112) 7px 0 5px;

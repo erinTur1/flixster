@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 import MovieList from './components/MovieList'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import SearchForm from './components/SearchForm'
 import SortForm from './components/SortForm'
 import { sortMovieData } from './utils/utils';
+import './App.css'
+
 
 
 const App = () => {
@@ -164,8 +166,10 @@ const App = () => {
   return (
     <div className="App">
       <Header/>
-      <SearchForm searchQuery={searchQuery} onSearchChange={handleSearchQueryChange} onSubmitSearch={handleSearchQuerySubmit}/>
-      <SortForm onSelectChange={handleSortRequest}/>
+      <section className="search-sort-area">
+        <SearchForm searchQuery={searchQuery} onSearchChange={handleSearchQueryChange} onSubmitSearch={handleSearchQuerySubmit}/>
+        <SortForm onSelectChange={handleSortRequest}/>
+      </section>
       <button onClick={() => {
         setToggleValue('now playing');
       }}>Now playing</button>
@@ -174,7 +178,7 @@ const App = () => {
       }}>Search Results</button>
       <MovieList movies={toggleValue === 'now playing'? nowPlayingList: searchResultsList}/>
       <button onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button>
-
+      <Footer />
     </div>
   )
 }

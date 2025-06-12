@@ -8,6 +8,7 @@ const Modal = ({isVisible, onClose, children}) => {
             <div className="modal-popup"> 
                 <div className="modal-content">
                    {children}
+                   <br></br>
                    <button onClick={onClose}>Close</button>
                 </div>
             </div>
