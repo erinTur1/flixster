@@ -24,17 +24,18 @@ const App = () => {
   const [sortRequest, setSortRequest] = useState('');
 
   //state necessary for movie lists
-
-  //toggleValue controls what list is visible to the user: now playing movies or results from their search
+    //toggleValue controls what list is visible to the user: now playing movies or results from their search
   const [toggleValue, setToggleValue] = useState('now playing');
   const [nowPlayingList, setNowPlayingList] = useState([]);
   const [searchResultsList, setSearchResultsList] = useState([]);
 
-  //decided to have num pages state for each movie list so that if user chooses to load more for one, they aren't affecting the other list
+  //state variables necessary for load more functionality
+    //decided to have num pages state for each movie list so that if user chooses to load more for one, they aren't affecting the other list
   const [numPagesNowPlayingList, setNumPagesNowPlayingList] = useState(1);
   const [numPagesSearchResultsList, setNumPagesSearchResultsList] = useState(1);
-  const [isLoadMoreVisible, setIsLoadMoreVisible] = useState(true);
+    //need state to keep track of if the user loaded all search results - they shouldn't be able to load more and should be notified of this
   const [limitReachedSearchResults, setLimitReachedSearchResults] = useState(false);
+  const [resultsNotif, setResultsNotif] = useState('');
 
   
 
@@ -121,9 +122,13 @@ const App = () => {
           }
           const jsonData = await response.json();
 
-          if (jsonData.results.length == 0 && numPagesSearchResultsList > 1) {
-            console.log("limit reached");
+          if (jsonData.results.length == 0) {
             setLimitReachedSearchResults(true);
+            if (numPagesSearchResultsList > 1) {
+              setResultsNotif('No more results!');
+            } else if (numPagesSearchResultsList == 1) {
+              setResultsNotif('Please search for a movie to see results here!');
+            }
           }
                 
           setSearchResultsList([...searchResultsList, ...jsonData.results]);
@@ -151,10 +156,6 @@ const App = () => {
   }
 
   const addPageSearchList = () => {
-        // if ((numPagesSearchResultsList + 1) === totalPagesSearchResults) {
-        //   setIsLoadMoreVisible(false);
-        //   console.log("hide");
-        // }
         setNumPagesSearchResultsList(numPagesSearchResultsList => numPagesSearchResultsList + 1);
   }
 
@@ -173,7 +174,7 @@ const App = () => {
       }}>Search Results</button>
       <MovieList movies={toggleValue === 'now playing'? nowPlayingList: searchResultsList}/>
       <button className={limitReachedSearchResults && toggleValue === 'searched'?"loadMoreBtn hidden":"loadMoreBtn"} onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button>
-      {/* <button className="loadMoreBtn" onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button> */}
+      <p hidden={(toggleValue === 'now playing' || !limitReachedSearchResults)?true:false}>{resultsNotif}</p>
       <Footer />
     </div>
   )

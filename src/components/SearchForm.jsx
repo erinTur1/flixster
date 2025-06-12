@@ -4,6 +4,8 @@ import '../styles/SearchForm.css';
 const SearchForm = ({searchRequest, onSearchChange, onSubmitSearch}) => {
 
     const[isSearchDisabled, setIsSearchDisabled] = useState(false);
+    // const[isEmptySearch, setIsEmptySearch] = useState(false);
+    const[searchNotif, setSearchNotif] = useState('');
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -12,14 +14,18 @@ const SearchForm = ({searchRequest, onSearchChange, onSubmitSearch}) => {
         if (submitEvent === "search") {
             const formData = new FormData(event.target);
             const newSearchQuery = formData.get('movie-title');
-            //callback in App.jsx that will trigger a search with the query
-            onSubmitSearch(newSearchQuery);
-
-            setIsSearchDisabled(true);
+            if (newSearchQuery == '') {
+                setSearchNotif("It seems you haven't searched for anything!");
+            } else {
+                //callback in App.jsx that will trigger a search with the query
+                onSubmitSearch(newSearchQuery);
+                setSearchNotif("Please click \"clear\" for a new search!");
+                setIsSearchDisabled(true);
+            }
         } else if (submitEvent === "clear") {
             onSubmitSearch('');
             event.target.reset();
-
+            setSearchNotif('');
             setIsSearchDisabled(false);
         }
     }
@@ -33,7 +39,8 @@ const SearchForm = ({searchRequest, onSearchChange, onSubmitSearch}) => {
 
     return (
         <div className="search-form" onSubmit={handleSubmit}>
-            <p>{isSearchDisabled&&"Please click \"clear\" for a new search!"}</p>
+            {/* <p>{isSearchDisabled || emptySearch &&"Please click \"clear\" for a new search!"}</p> */}
+            <p>{searchNotif}</p>
             <form>
                 <input disabled={isSearchDisabled?true:false} type="text" id="title" name="movie-title" placeholder="Search for movies" onChange={handleSearchChange} value={searchRequest}/>
                 <input type="submit" name="search" value="Search" />

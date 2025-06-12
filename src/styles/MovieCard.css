@@ -1,10 +1,10 @@
 .movie-card {
     background-color: #373d48;
     width: 15%;
-    height: 50vh;
+    height: 53vh;
     margin: 5px;
     box-shadow: 5px 5px 3px rgb(114, 112, 112);
-    overflow: scroll;
+    overflow:hidden;
 }
 
 .movie-card img {
