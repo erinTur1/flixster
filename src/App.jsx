@@ -50,9 +50,10 @@ const App = () => {
   }, [sortRequest]);
     
 
-  //problem here - set to false again so data is fetched again which we dont want
   useEffect(() => {
-    fetchSearchedData();
+    if (searchIsComplete) {
+      fetchSearchedData();
+    }
   }, [searchIsComplete]);
 
   //search and sort forms
@@ -63,7 +64,7 @@ const App = () => {
   const handleSearchQuerySubmit = (newSearchQuery) => {
     if (newSearchQuery === '') {
       setSearchResultsList([]);
-      // setSearchIsComplete(false);
+      setSearchIsComplete(false);
       setToggleValue('now playing');
     } else {
       // setSearchQuery(newSearchQuery); //MAY BE ABLE TO DELETE THIS LINE OF CODE
