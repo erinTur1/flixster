@@ -3,8 +3,10 @@ import '../styles/SearchForm.css';
 
 const SearchForm = ({searchRequest, onSearchChange, onSubmitSearch}) => {
 
+    /*user needs to click "clear" to type in a new search (in project instructions) so I have it disabled when a search is already made 
+    to emphasize this*/
     const[isSearchDisabled, setIsSearchDisabled] = useState(false);
-    // const[isEmptySearch, setIsEmptySearch] = useState(false);
+    //paragraph on top of search bar notifying user if their search is empty, or is they need to click "clear"
     const[searchNotif, setSearchNotif] = useState('');
 
     const handleSubmit = (event) => {
@@ -39,7 +41,6 @@ const SearchForm = ({searchRequest, onSearchChange, onSubmitSearch}) => {
 
     return (
         <div className="search-form" onSubmit={handleSubmit}>
-            {/* <p>{isSearchDisabled || emptySearch &&"Please click \"clear\" for a new search!"}</p> */}
             <p>{searchNotif}</p>
             <form>
                 <input disabled={isSearchDisabled?true:false} type="text" id="title" name="movie-title" placeholder="Search for movies" onChange={handleSearchChange} value={searchRequest}/>

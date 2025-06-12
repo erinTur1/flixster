@@ -18,7 +18,6 @@ const options = {
 
 const App = () => {
   //state necessary for search and sort forms
-
   const [searchQuery, setSearchQuery] = useState('');
   const [searchIsComplete, setSearchIsComplete] = useState(false);
   const [sortRequest, setSortRequest] = useState('');
@@ -122,11 +121,13 @@ const App = () => {
           }
           const jsonData = await response.json();
 
+          //if we have gotten all possible results...
           if (jsonData.results.length == 0) {
             setLimitReachedSearchResults(true);
             if (numPagesSearchResultsList > 1) {
               setResultsNotif('No more results!');
             } else if (numPagesSearchResultsList == 1) {
+              //this is true when the search results screen is clicked on, but nothing was searched for
               setResultsNotif('Please search for a movie to see results here!');
             }
           }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-//for random key generation - api has repeated movies in its database, so when react elements are rendered, non-unique keys results in errors
+//below import is for random key generation - api has repeated movies in its database, so when react elements are rendered, non-unique keys results in errors
 import { v4 as uuidv4 } from 'uuid'; 
 import MovieCard from './MovieCard';
 import Modal from './Modal';
