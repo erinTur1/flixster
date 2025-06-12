@@ -1,6 +1,9 @@
+import { useState } from 'react'
 import '../styles/SearchForm.css';
 
 const SearchForm = ({searchRequest, onSearchChange, onSubmitSearch}) => {
+
+    const[isSearchDisabled, setIsSearchDisabled] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -11,9 +14,13 @@ const SearchForm = ({searchRequest, onSearchChange, onSubmitSearch}) => {
             const newSearchQuery = formData.get('movie-title');
             //callback in App.jsx that will trigger a search with the query
             onSubmitSearch(newSearchQuery);
+
+            setIsSearchDisabled(true);
         } else if (submitEvent === "clear") {
             onSubmitSearch('');
             event.target.reset();
+
+            setIsSearchDisabled(false);
         }
     }
 
@@ -26,8 +33,9 @@ const SearchForm = ({searchRequest, onSearchChange, onSubmitSearch}) => {
 
     return (
         <div className="search-form" onSubmit={handleSubmit}>
+            <p>{isSearchDisabled&&"Please click \"clear\" for a new search!"}</p>
             <form>
-                <input type="text" id="title" name="movie-title" placeholder="Search for movies" onChange={handleSearchChange} value={searchRequest}/>
+                <input disabled={isSearchDisabled?true:false} type="text" id="title" name="movie-title" placeholder="Search for movies" onChange={handleSearchChange} value={searchRequest}/>
                 <input type="submit" name="search" value="Search" />
                 <input type="submit" name="clear" value="Clear" />
             </form>
