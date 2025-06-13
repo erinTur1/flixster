@@ -20,7 +20,7 @@ Deployed Application (**required**): [Flixster Deployed Site](ADD_LINK_HERE)
     - [X] Poster image
     - [X] Vote average
   - [X] Users can load more current movies by clicking a button which adds more movies to the grid without reloading the entire page. 
-- [ ] **Search Functionality**
+- [X] **Search Functionality**
   - [X] Users can use a search bar to search for movies by title.
   - [X] The search bar should include:
     - [X] Text input field
@@ -31,10 +31,10 @@ Deployed Application (**required**): [Flixster Deployed Site](ADD_LINK_HERE)
     - [X] Clicks the Submit/Search button
   - [X] Users can click the Clear button. When clicked:
     - [X] Most recent search results are cleared from the text input field and the grid view and all current movies are displayed in a grid view
-- [ ] **Design Features**
-  - [ ] Website implements all of the following accessibility features:
+- [X] **Design Features**
+  - [X] Website implements all of the following accessibility features:
     - [X] Semantic HTML
-    - [ ] [Color contrast](https://webaim.org/resources/contrastchecker/)
+    - [X] [Color contrast](https://webaim.org/resources/contrastchecker/)
     - [X] Alt text for images 
   - [X] Website implements responsive web design.
     - [X] Uses CSS Flexbox or CSS Grid

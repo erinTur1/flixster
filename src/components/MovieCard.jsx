@@ -38,7 +38,7 @@ const MovieCard = ({data, displayModal}) => {
         <section className="movie-card-info">
           <p>{parsedData.movieTitle}</p>
           <p>Vote average: {parsedData.movieRating}</p>
-          <FontAwesomeIcon icon={isFavorited?filledHeart:emptyHeart} onClick={(event) => {
+          <FontAwesomeIcon className="heart-icon" icon={isFavorited?filledHeart:emptyHeart} onClick={(event) => {
             event.stopPropagation();
             handleFavorite();
           }}/>
