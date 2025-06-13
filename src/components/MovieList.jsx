@@ -13,7 +13,7 @@ const options = {
   }
 };
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, heartClickCallback, eyeClickCallback, movieListType }) => {
 
     //Note: MovieList handles fetching for specific modal data and it contains the callback functions for changing the visibility of the modal
 
@@ -106,12 +106,18 @@ const MovieList = ({ movies }) => {
         <>
         <>
         <div className="movie-list-container">
-            {movies.map((movie) => {
+            {movies.map((movie, index) => {
                 return (
                     <MovieCard 
                         displayModal={openModal}
                         key={uuidv4()}
                         data={movie}
+                        ind={index}
+                        handleHeartClick={heartClickCallback}
+                        handleEyeClick={eyeClickCallback}
+                        isPrevLiked={movie.isLiked}
+                        isPrevWatched={movie.isWatched}
+                        currList={movieListType}
                     />
                 );
             })}

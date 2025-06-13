@@ -9,12 +9,12 @@ import { parseMovieData } from '../utils/utils';
 import '../styles/MovieCard.css'
 
 
-const MovieCard = ({data, displayModal}) => {
+const MovieCard = ({data, displayModal, handleHeartClick, handleEyeClick, ind, isPrevLiked, isPrevWatched, currList}) => {
 
-  let prevHeartState = false;
+  let prevHeartState = false; //DELETE?
 
-  const [isFavorited, setIsFavorited] = useState(false);
-  const [isWatched, setIsWatched] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(isPrevLiked);
+  const [isWatched, setIsWatched] = useState(isPrevWatched);
 
   //MovieCard is passed an object of movie details for each movie, parse so we only get the desired details
   const parsedData = data ? parseMovieData(data) : [];
@@ -26,6 +26,7 @@ const MovieCard = ({data, displayModal}) => {
   }
 
   const handleFavoriteClick = () => {
+    handleHeartClick(currList, ind);
     if (!isFavorited ) {
       setIsFavorited(true);
       prevHeartState = true;
@@ -36,13 +37,11 @@ const MovieCard = ({data, displayModal}) => {
   }
 
   const handleWatchClick = () => {
-    console.log("watch clicked");
+    handleEyeClick(currList, ind);
     if (!isWatched ) {
       setIsWatched(true);
-      prevHeartState = true;
     } else {
       setIsWatched(false);
-      prevHeartState = false;
     }
   }
 

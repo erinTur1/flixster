@@ -94,6 +94,38 @@ const App = () => {
     setSortRequest(selectedOption);
   }
 
+  const handleLikedClicked = (movieListType, index) => {
+    if (movieListType === 'now playing') {
+      if (!nowPlayingList[index].isLiked) {
+        nowPlayingList[index].isLiked = true;
+      } else {
+        nowPlayingList[index].isLiked = false;
+      }
+    } else {
+      if (!searchResultsList[index].isLiked) {
+        searchResultsList[index].isLiked = true;
+      } else {
+        searchResultsList[index].isLiked = false;
+      }
+    }
+  }
+
+  const handleWatchedClicked = (movieListType, index) => {
+    if (movieListType === 'now playing') {
+      if (!nowPlayingList[index].isWatched) {
+        nowPlayingList[index].isWatched = true;
+      } else {
+        nowPlayingList[index].isWatched = false;
+      }
+    } else {
+      if (!searchResultsList[index].isWatched) {
+        searchResultsList[index].isWatched = true;
+      } else {
+        searchResultsList[index].isWatched = false;
+      }
+    }
+  }
+
   const fetchNowPlayingData = async() => {
 
         const url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${numPagesNowPlayingList}`;
@@ -104,7 +136,11 @@ const App = () => {
                 throw new Error(`Failed to fetch movie data: \nResponse status: ${response.status}`)
             }
             const jsonData = await response.json();
-                
+
+            for (let i = 0; i < jsonData.results.length; i++) {
+              jsonData.results[i] = {...jsonData.results[i], ...{isWatched: false, isLiked: false}}
+            }
+
             setNowPlayingList([...nowPlayingList, ...jsonData.results]);
                         
         } catch (error) {
@@ -133,6 +169,10 @@ const App = () => {
               //this is true when the search results screen is clicked on, but nothing was searched for
               setResultsNotif('Please search for a movie to see results here!');
             }
+          }
+
+          for (let i = 0; i < jsonData.results.length; i++) {
+              jsonData.results[i] = {...jsonData.results[i], ...{isWatched: false, isLiked: false}}
           }
                 
           setSearchResultsList([...searchResultsList, ...jsonData.results]);
@@ -178,7 +218,7 @@ const App = () => {
         setToggleValue('searched');
       }}>Search Results</button>
       <section id="content-area">
-        <MovieList movies={toggleValue === 'now playing'? nowPlayingList: searchResultsList}/>
+        <MovieList eyeClickCallback={handleWatchedClicked} heartClickCallback={handleLikedClicked} movies={toggleValue === 'now playing'? nowPlayingList: searchResultsList} movieListType={toggleValue}/>
         <button className={limitReachedSearchResults && toggleValue === 'searched'?"loadMoreBtn hidden":"loadMoreBtn"} onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button>
         <p className="notif-para" hidden={(toggleValue === 'now playing' || !limitReachedSearchResults)?true:false}>{resultsNotif}</p>
       </section>
