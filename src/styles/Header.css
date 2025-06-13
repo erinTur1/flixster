@@ -10,22 +10,23 @@ header {
     align-items:flex-end;
 }
 
+
 #logo-img {
-    height: 5%;
-    width: 5%;
+    height: 90px;
+    width: 90px;
 }
 
-.title-div {
+.banner {
     text-align: center;
     align-self: center;
     flex-grow: 1;
 }   
 
-.title-div span {
+.banner span {
     display: flex;
     flex-direction: row;
 }
 
-.title-div h1 {
+.banner h1 {
     color: white;
 }

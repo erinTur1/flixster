@@ -3,7 +3,7 @@ import '../styles/Header.css';
 
 const Header = () => {
     return (<header>
-        <div className="title-div">
+        <div className="banner">
             <span>
                 <img id="logo-img" src={logo} alt="image of logo of Flixster"/>
                 <h1>Flixster</h1>

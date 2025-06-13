@@ -94,6 +94,7 @@ const App = () => {
     setSortRequest(selectedOption);
   }
 
+  //called when a heart icon on any of the movie cards is clicked (passed the movie list the movie is in and its index)
   const handleLikedClicked = (movieListType, index) => {
     if (movieListType === 'now playing') {
       if (!nowPlayingList[index].isLiked) {
@@ -110,6 +111,7 @@ const App = () => {
     }
   }
 
+  //called when an eye icon on any of the movie cards is clicked (passed the movie list the movie is in and its index)
   const handleWatchedClicked = (movieListType, index) => {
     if (movieListType === 'now playing') {
       if (!nowPlayingList[index].isWatched) {
@@ -137,6 +139,7 @@ const App = () => {
             }
             const jsonData = await response.json();
 
+            //append default isLiked and isWatched attributes to the movie objects after fetch
             for (let i = 0; i < jsonData.results.length; i++) {
               jsonData.results[i] = {...jsonData.results[i], ...{isWatched: false, isLiked: false}}
             }
@@ -171,6 +174,7 @@ const App = () => {
             }
           }
 
+          //append default isLiked and isWatched attributes to the movie objects after fetch
           for (let i = 0; i < jsonData.results.length; i++) {
               jsonData.results[i] = {...jsonData.results[i], ...{isWatched: false, isLiked: false}}
           }

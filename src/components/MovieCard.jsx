@@ -3,19 +3,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as filledHeart } from '@fortawesome/free-solid-svg-icons'; 
 import { faHeart as emptyHeart } from '@fortawesome/free-regular-svg-icons'; 
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons'; 
-
-// import { faHeart as emptyHeart } from '@fortawesome/free-regular-svg-icons';
 import { parseMovieData } from '../utils/utils';
+import placeHolderImage from '../assets/movie-img-placeholder.jpg';
 import '../styles/MovieCard.css'
 
 
 const MovieCard = ({data, displayModal, handleHeartClick, handleEyeClick, ind, isPrevLiked, isPrevWatched, currList}) => {
 
+  //these are for having visual feedback when the heart or eye icon on movie card is clicked
   const [isFavorited, setIsFavorited] = useState(isPrevLiked);
   const [isWatched, setIsWatched] = useState(isPrevWatched);
 
   //MovieCard is passed an object of movie details for each movie, parse so we only get the desired details
   const parsedData = data ? parseMovieData(data) : [];
+
+  if (parsedData.movieImg == null) {
+    parsedData.movieImg = placeHolderImage;
+  } else {
+    parsedData.movieImg = "https://image.tmdb.org/t/p/w500" + parsedData.movieImg;
+  }
 
   //callback function that is triggered when a MovieCard is clicked
   const handleDisplayModal = () => {
@@ -24,7 +30,8 @@ const MovieCard = ({data, displayModal, handleHeartClick, handleEyeClick, ind, i
   }
 
   const handleFavoriteClick = () => {
-    handleHeartClick(currList, ind);
+    handleHeartClick(currList, ind); //will eventually reach back to App.jsx, telling it the movie list ('now playing' or 'search results') and the index of the movie in the array to change isLiked
+    //for visual feedback:
     if (!isFavorited ) {
       setIsFavorited(true);
     } else {
@@ -33,7 +40,8 @@ const MovieCard = ({data, displayModal, handleHeartClick, handleEyeClick, ind, i
   }
 
   const handleWatchClick = () => {
-    handleEyeClick(currList, ind);
+    handleEyeClick(currList, ind); //will eventually reach back to App.jsx, telling it the movie list ('now playing' or 'search results') and the index of the movie in the array to change isWatched
+    //for visual feedback:
     if (!isWatched ) {
       setIsWatched(true);
     } else {
@@ -43,7 +51,7 @@ const MovieCard = ({data, displayModal, handleHeartClick, handleEyeClick, ind, i
 
   return (
     <div className="movie-card" onClick={handleDisplayModal}>
-        <img src={"https://image.tmdb.org/t/p/w500" + parsedData.movieImg} alt={"poster image of " + parsedData.movieTitle}/>
+        <img src={parsedData.movieImg} alt={"poster image of " + parsedData.movieTitle}/>
         <section className="movie-card-info">
           <p>{parsedData.movieTitle}</p>
           <p>Vote average: {parsedData.movieRating}</p>
