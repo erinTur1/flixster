@@ -11,8 +11,6 @@ import '../styles/MovieCard.css'
 
 const MovieCard = ({data, displayModal, handleHeartClick, handleEyeClick, ind, isPrevLiked, isPrevWatched, currList}) => {
 
-  let prevHeartState = false; //DELETE?
-
   const [isFavorited, setIsFavorited] = useState(isPrevLiked);
   const [isWatched, setIsWatched] = useState(isPrevWatched);
 
@@ -29,10 +27,8 @@ const MovieCard = ({data, displayModal, handleHeartClick, handleEyeClick, ind, i
     handleHeartClick(currList, ind);
     if (!isFavorited ) {
       setIsFavorited(true);
-      prevHeartState = true;
     } else {
       setIsFavorited(false);
-      prevHeartState = false;
     }
   }
 
