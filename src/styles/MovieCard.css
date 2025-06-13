@@ -1,4 +1,6 @@
 .movie-card {
+    display: flex;
+    flex-direction: column;
     background-color: #373d48;
     width: 15%;
     height: 60vh;
@@ -10,10 +12,14 @@
 .movie-card img {
     padding-bottom: 10px;
     width: 100%;
-    max-height: 80%;
+    max-height: 70%;
+}
+
+.movie-card-info {
+    flex-shrink: 1;
 }
 
 .movie-card p {
     margin: 2px;
-    font-size: 20px;
+    font-size: 17px;
 }

@@ -80,6 +80,7 @@ const App = () => {
       setSearchResultsList([]);
       setSearchIsComplete(false);
       setLimitReachedSearchResults(true);
+      setResultsNotif('Please search for a movie to see results here!');
 
       setToggleValue('now playing'); //show now playing movies instead
     } else {
@@ -176,9 +177,11 @@ const App = () => {
       <button className={toggleValue === 'searched'? "selected toggleBtn":"toggleBtn"} onClick={() => {
         setToggleValue('searched');
       }}>Search Results</button>
-      <MovieList movies={toggleValue === 'now playing'? nowPlayingList: searchResultsList}/>
-      <button className={limitReachedSearchResults && toggleValue === 'searched'?"loadMoreBtn hidden":"loadMoreBtn"} onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button>
-      <p className="notif-para" hidden={(toggleValue === 'now playing' || !limitReachedSearchResults)?true:false}>{resultsNotif}</p>
+      <section id="content-area">
+        <MovieList movies={toggleValue === 'now playing'? nowPlayingList: searchResultsList}/>
+        <button className={limitReachedSearchResults && toggleValue === 'searched'?"loadMoreBtn hidden":"loadMoreBtn"} onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button>
+        <p className="notif-para" hidden={(toggleValue === 'now playing' || !limitReachedSearchResults)?true:false}>{resultsNotif}</p>
+      </section>
       <Footer />
     </div>
   )

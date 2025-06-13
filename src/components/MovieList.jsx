@@ -86,7 +86,7 @@ const MovieList = ({ movies }) => {
                     <p>{fetchedModalData?.overview}</p>
                     <p>Release date: {fetchedModalData?.release_date}</p>
                     <p>Runtime: {fetchedModalData?.runtime} minutes</p>
-                    <p>Genres:</p>
+                    <span>Genres:</span>
                     {fetchedModalData?.genres.map((genre) => {
                         return <span>{genre.name},</span>
                     })}

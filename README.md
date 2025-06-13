@@ -2,9 +2,9 @@
 
 ## Unit Assignment: Flixster
 
-Submitted by: **NAME**
+Submitted by: Erin Turgut
 
-Estimated time spent: **#** hours spent in total
+Estimated time spent: 25-30 hours spent in total
 
 Deployed Application (**required**): [Flixster Deployed Site](ADD_LINK_HERE)
 
@@ -29,11 +29,11 @@ Deployed Application (**required**): [Flixster Deployed Site](ADD_LINK_HERE)
   - [X] Movies with a title containing the search query in the text input field are displayed in a grid view when the user either:
     - [X] Presses the Enter key
     - [X] Clicks the Submit/Search button
-  - [ ] Users can click the Clear button. When clicked:
-    - [ ] Most recent search results are cleared from the text input field and the grid view and all current movies are displayed in a grid view
+  - [X] Users can click the Clear button. When clicked:
+    - [X] Most recent search results are cleared from the text input field and the grid view and all current movies are displayed in a grid view
 - [ ] **Design Features**
   - [ ] Website implements all of the following accessibility features:
-    - [ ] Semantic HTML
+    - [X] Semantic HTML
     - [ ] [Color contrast](https://webaim.org/resources/contrastchecker/)
     - [X] Alt text for images 
   - [X] Website implements responsive web design.

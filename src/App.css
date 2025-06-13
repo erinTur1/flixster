@@ -34,7 +34,9 @@
   margin-bottom: 20 px;
 }
 
-
+#content-area {
+  margin-bottom: 70px;
+}
 
 .App {
   text-align: center;
