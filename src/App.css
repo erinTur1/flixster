@@ -19,6 +19,7 @@
   padding: 15px;
   width: 40vw;
   margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 .hidden {
@@ -27,6 +28,10 @@
 
 .loadMoreBtn:hover {
   background-color: #215ac6;
+}
+
+.notif-para {
+  margin-bottom: 20 px;
 }
 
 

@@ -3,9 +3,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 150vw;
-    height: 150vh;
-    background: rgba(0, 0, 0, 0.5);
+    width:100vw;
+    height:100vh;
+    background: rgba(0, 0, 0, 0.6);
     z-index: 2;
     
 }
@@ -13,9 +13,10 @@
 .modal-popup {
     display: block;
     z-index: 2;
-    max-width: 70%;
+    min-width: 70%;
     max-height: 70%;
-
+    margin-bottom: 20px;
+    /* overflow: scroll; */
     /*Below is to center the modal relative to the browser window*/
     position: fixed;
     left: 50%;
@@ -37,7 +38,7 @@
 .modal-content button {
     background-color: #768198;
     width: 7vw;
-    height: 7vh;
+    height: 4vh;
     margin-top: 12px;
 }
 
@@ -49,4 +50,10 @@
     border-width: 10px;
     overflow: scroll;
     box-shadow: 10px 10px 10px rgb(114, 112, 112);
+}
+
+.modal-content-visuals {
+    display: flex;
+    flex-direction: inline;
+    justify-content: space-around;
 }

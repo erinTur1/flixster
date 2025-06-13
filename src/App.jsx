@@ -73,11 +73,13 @@ const App = () => {
     setSearchQuery(newSearchQuery);
   }
 
+  //*
   const handleSearchQuerySubmit = (newSearchQuery) => {
     if (newSearchQuery === '') {
       //nothing was searched for
       setSearchResultsList([]);
       setSearchIsComplete(false);
+      setLimitReachedSearchResults(true);
 
       setToggleValue('now playing'); //show now playing movies instead
     } else {
@@ -160,6 +162,7 @@ const App = () => {
         setNumPagesSearchResultsList(numPagesSearchResultsList => numPagesSearchResultsList + 1);
   }
 
+
   return (
     <div className="App">
       <Header/>
@@ -175,7 +178,7 @@ const App = () => {
       }}>Search Results</button>
       <MovieList movies={toggleValue === 'now playing'? nowPlayingList: searchResultsList}/>
       <button className={limitReachedSearchResults && toggleValue === 'searched'?"loadMoreBtn hidden":"loadMoreBtn"} onClick={toggleValue === 'now playing'? addPageNowPlaying: addPageSearchList} title="Load More">Load More</button>
-      <p hidden={(toggleValue === 'now playing' || !limitReachedSearchResults)?true:false}>{resultsNotif}</p>
+      <p className="notif-para" hidden={(toggleValue === 'now playing' || !limitReachedSearchResults)?true:false}>{resultsNotif}</p>
       <Footer />
     </div>
   )
