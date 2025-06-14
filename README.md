@@ -1,12 +1,10 @@
-📝 `NOTE` Use this template to initialize the contents of a README.md file for your application. As you work on your assignment over the course of the week, update the required or stretch features lists to indicate which features you have completed by changing `[ ]` to `[x]`. (🚫 Remove this paragraph before submitting your assignment.)
-
 ## Unit Assignment: Flixster
 
 Submitted by: Erin Turgut
 
 Estimated time spent: 25-30 hours spent in total
 
-Deployed Application (**required**): [Flixster Deployed Site](ADD_LINK_HERE)
+Deployed Application (**required**): [Flixster Deployed Site] https://flixster-tlo6.onrender.com/
 
 ### Application Features
 
@@ -55,16 +53,16 @@ Deployed Application (**required**): [Flixster Deployed Site](ADD_LINK_HERE)
       - [X] Release date (chronologically, most recent to oldest)
       - [X] Vote average (descending, highest to lowest)
     - [X] When a sort option is clicked, movies display in a grid according to selected criterion.
-  - [ ] Website displays:
+  - [X] Website displays:
     - [X] Header section
     - [X] Banner section
     - [X] Search bar
     - [X] Movie grid
     - [X] Footer section
-    - [ ] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: To ease the grading process, please use the [color contrast checker](https://webaim.org/resources/contrastchecker/) to demonstrate to the grading team that text and background colors on your website have appropriate contrast. The Contrast Ratio should be above 4.5:1 and should have a green box surrounding it. 
-  - [ ] **Deployment**
+    - [X] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: To ease the grading process, please use the [color contrast checker](https://webaim.org/resources/contrastchecker/) to demonstrate to the grading team that text and background colors on your website have appropriate contrast. The Contrast Ratio should be above 4.5:1 and should have a green box surrounding it. 
+  - [X] **Deployment**
   - [X] Website is deployed via Render.
-  - [ ] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: For ease of grading, please use the deployed version of your website when creating your walkthrough. 
+  - [X] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: For ease of grading, please use the deployed version of your website when creating your walkthrough. 
 
 #### STRETCH FEATURES
 
@@ -102,9 +100,10 @@ Deployed Application (**required**): [Flixster Deployed Site](ADD_LINK_HERE)
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. Ensure your walkthrough showcases the presence and/or functionality of all features you implemented above (check them off as you film!). Pay attention to any **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS** checkboxes listed above to ensure graders see the full functionality of your website! (🚫 Remove this paragraph after adding walkthrough video)
+<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/7d94285fc384441c8514abb75173bdbe?sid=c5733c52-d4b7-4e20-ad13-477b2bfbde83" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
-`ADD_EMBEDDED_CODE_HERE`
+Link: 
+https://www.loom.com/share/7d94285fc384441c8514abb75173bdbe?sid=487b1968-d238-49ab-bd8d-8d9c0fc4ac9d
 
 ### Reflection
 
